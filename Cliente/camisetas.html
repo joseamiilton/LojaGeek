@@ -140,14 +140,14 @@
           </a>
         </div>
 
-        <div class="row">
+        <div class="row" id="app">
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="camisetaPN.html"><img class="card-img-top" src="img/camisetas/panteranegra.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/panteranegra.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="camisetaPN.html">Pantera Negra</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5 class="price">R$40,00</h5>
                 <p class="card-text">Camiseta Pantera Negra</p>
@@ -161,10 +161,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="camisetaHP.html"><img class="card-img-top" src="img/camisetas/934.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+8"><img class="card-img-top" src="img/934.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="camisetaHP.html">Harry Potter</a>
+                  <a :href="'produtos.html?id='+8">{{produtos[7].nome}}</a>
                 </h4>
                 <h5 class="price">R$40,00</h5>
                 <p class="card-text">Camiseta Harry Potter</p>
@@ -178,10 +178,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="camisetaB.html"><img class="card-img-top" src="img/camisetas/banguela.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+9"><img class="card-img-top" src="img/banguela.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="camisetaB.html">Banguela</a>
+                  <a :href="'produtos.html?id='+9">{{produtos[8].nome}}</a>
                 </h4>
                 <h5 class="price">R$40,00</h5>
                 <p class="card-text">Camiseta Banguela</p>
@@ -195,7 +195,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/DBhakuna.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="img/DBhakuna.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Dragon Ball</a>
@@ -212,7 +212,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/pokyvader.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="img/pokyvader.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Darth Vader</a>
@@ -229,7 +229,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/venom.jpg" alt=""></a>
+              <a href=""><img class="card-img-top" src="img/cvenom.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Venom</a>
@@ -246,7 +246,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/spmario.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="img/spmario.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Super Mario</a>
@@ -263,7 +263,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/fullmetal.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="img/cfullmetal.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Fullmetal</a>
@@ -280,7 +280,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-90">
-              <a href="#"><img class="card-img-top" src="img/camisetas/osincriveis.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="img/cosincriveis.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Os Incriveis</a>
@@ -308,6 +308,27 @@
       alert("Produto adicionado ao carrinho!");
     }
   </script>
+       <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                url: "http://localhost:8080/rest_persistence/api/produtos",
+                produtos: []
+            },
+            created() {
+                vm = this;
+                axios.get(this.url).then(function (r) {
+                    if(r.data.produto.length > 1) {
+                        vm.produtos = r.data.produto;    
+                    } else {
+                        vm.produtos = r.data;
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        });
+    </script>
 
   <footer class="page-footer font-small cyan darken-3">
     <div class="container">
