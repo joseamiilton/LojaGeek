@@ -146,10 +146,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="hqBatman.html"><img class="card-img-top" src="img/hq/bat.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/bat.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="hqBatman.html">Batman</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">Batman - A Piada Mortal</p>
@@ -163,10 +163,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/hq/capmarvel.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/capmarvel.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Capitã Marvel</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">Capitã Marvel - Mais Alto, Mais Longe, Mais rápido e Mais...</p>
@@ -180,10 +180,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/hq/dem.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/dem.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Demolidor</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">O Homem Sem Medo</p>
@@ -197,10 +197,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/hq/mm.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/mm.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Mulher-Maravilha</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">Mulher-Maravilha Direito de Nascença</p>
@@ -214,10 +214,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/hq/spider.jpg" alt="" height="450px"></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/spider.jpg" alt="" height="450px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Homem-Aranha</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">Homem-Aranha - A Última Caçada de Kraven</p>
@@ -231,10 +231,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/hq/v.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/v.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">V de Vingança</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$30,00</h5>
                 <p class="card-text">V de Vingança - Alan MOORE + David Lloyd</p>
@@ -258,6 +258,27 @@
       localStorage.setItem("valor" + posicao, valor);
       alert("Produto adicionado ao carrinho!");
     }
+  </script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        url: "http://localhost:8080/rest_persistence/api/produtos",
+        produtos: []
+      },
+      created() {
+        vm = this;
+        axios.get(this.url).then(function (r) {
+          if (r.data.produto.length > 1) {
+            vm.produtos = r.data.produto;
+          } else {
+            vm.produtos = r.data;
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    });
   </script>
 
   <footer class="page-footer font-small cyan darken-3">

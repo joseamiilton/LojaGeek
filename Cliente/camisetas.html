@@ -308,27 +308,27 @@
       alert("Produto adicionado ao carrinho!");
     }
   </script>
-       <script>
-        var app = new Vue({
-            el: "#app",
-            data: {
-                url: "http://localhost:8080/rest_persistence/api/produtos",
-                produtos: []
-            },
-            created() {
-                vm = this;
-                axios.get(this.url).then(function (r) {
-                    if(r.data.produto.length > 1) {
-                        vm.produtos = r.data.produto;    
-                    } else {
-                        vm.produtos = r.data;
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            }
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        url: "http://localhost:8080/rest_persistence/api/produtos",
+        produtos: []
+      },
+      created() {
+        vm = this;
+        axios.get(this.url).then(function (r) {
+          if (r.data.produto.length > 1) {
+            vm.produtos = r.data.produto;
+          } else {
+            vm.produtos = r.data;
+          }
+        }).catch(function (error) {
+          console.log(error);
         });
-    </script>
+      }
+    });
+  </script>
 
   <footer class="page-footer font-small cyan darken-3">
     <div class="container">

@@ -148,10 +148,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="acGoku.html"><img class="card-img-top" src="img/actionfigure/goku.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/goku.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="acGoku.html">Goku</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,00</h5>
                 <p class="card-text">Action Figure Goku (DBZ)</p>
@@ -165,10 +165,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/actionfigure/luffy.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7">{{produtos[6].nome}}<img class="card-img-top" src="img/luffy.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Luffy</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,00</h5>
                 <p class="card-text">Action Figure Luffy</p>
@@ -182,10 +182,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/actionfigure/naruto.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/naruto.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Naruto</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,00</h5>
                 <p class="card-text">Action Figure Naruto</p>
@@ -199,10 +199,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/actionfigure/orochimaru.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/orochimaru.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Orochimaru</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,90</h5>
                 <p class="card-text">Action Figure Orochimaru</p>
@@ -216,10 +216,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/actionfigure/shanks.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/shanks.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Shanks</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,00</h5>
                 <p class="card-text">Action Figure Shanks</p>
@@ -233,10 +233,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/actionfigure/shenlong.jpg" alt="" height="290px"></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/shenlong.jpg" alt="" height="290px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Shenlong</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$150,00</h5>
                 <p class="card-text">Action Figure Shenlong</p>
@@ -260,6 +260,27 @@
       localStorage.setItem("valor" + posicao, valor);
       alert("Produto adicionado ao carrinho!");
     }
+  </script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        url: "http://localhost:8080/rest_persistence/api/produtos",
+        produtos: []
+      },
+      created() {
+        vm = this;
+        axios.get(this.url).then(function (r) {
+          if (r.data.produto.length > 1) {
+            vm.produtos = r.data.produto;
+          } else {
+            vm.produtos = r.data;
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    });
   </script>
 
   <footer class="page-footer font-small cyan darken-3">

@@ -147,10 +147,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="casePN.html"><img class="card-img-top" src="img/acessorios/casebp.png" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/casebp.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="casePN.html">Pantera Negra</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$35,00</h5>
                 <p class="card-text">Case Pantera Negra</p>
@@ -164,10 +164,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/acessorios/casesm.png" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/casesm.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Mapa Super Mario</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$35,00</h5>
                 <p class="card-text">Case Mapa Super Mario</p>
@@ -181,10 +181,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="chaveiroGOT.html"><img class="card-img-top" src="img/acessorios/chavegot.png" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/chavegot.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="chaveiroGOT.html">Stark</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$20,00</h5>
                 <p class="card-text">Chaveiro GOT Stark</p>
@@ -198,10 +198,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/acessorios/chavthor.png" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/chavthor.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Mjolnir</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$20,00</h5>
                 <p class="card-text">Chaveiro Mjolnir Thor</p>
@@ -215,10 +215,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/acessorios/mascGO.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/mascGO.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Game Over</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$20,00</h5>
                 <p class="card-text">Máscara Game Over</p>
@@ -232,10 +232,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/acessorios/mascarax.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/mascarax.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Controle Xbox</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$20,00</h5>
                 <p class="card-text">Máscara Xbox</p>
@@ -259,6 +259,27 @@
       localStorage.setItem("valor" + posicao, valor);
       alert("Produto adicionado ao carrinho!");
     }
+  </script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        url: "http://localhost:8080/rest_persistence/api/produtos",
+        produtos: []
+      },
+      created() {
+        vm = this;
+        axios.get(this.url).then(function (r) {
+          if (r.data.produto.length > 1) {
+            vm.produtos = r.data.produto;
+          } else {
+            vm.produtos = r.data;
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    });
   </script>
 
   <footer class="page-footer font-small cyan darken-3">

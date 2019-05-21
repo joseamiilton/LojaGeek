@@ -24,8 +24,7 @@
       <div class="header-right">
         <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><img
             src="img/conta.png"><br>Conta
-          <a href="carrinho.html"><img
-              src="img/carrinho.png"><br>Carrinho</a>
+          <a href="carrinho.html"><img src="img/carrinho.png"><br>Carrinho</a>
           <a href="sac.html"><img src="img/sac.png"><br>Sac</a>
       </div>
     </div>
@@ -37,7 +36,7 @@
       <a href="hqs.html">HQ's</a>
       <a href="decoracoes.html">Decorações</a>
       <a href="kits.html">Kits</a>
-  </div>
+    </div>
   </header>
 
   <div id="id01" class="modal">
@@ -65,8 +64,7 @@
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" onclick="document.getElementById('id01').style.display='none'"
           class="cancelbtn">Cancelar</button>
-        <span class="psw">Ainda não possui conta? <a
-            href="cadastro.html"> Registre-se</a></span>
+        <span class="psw">Ainda não possui conta? <a href="cadastro.html"> Registre-se</a></span>
       </div>
     </form>
   </div>
@@ -110,10 +108,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="livroAG.html"><img class="card-img-top" src="img/livros/amgods.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/amgods.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="livroAG.html">Deuses Americanos</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Deuses Americanos - Neil Gaiman</p>
@@ -127,10 +125,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/livros/anansi.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/anansi.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Os Filhos de Anansi</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Os Filhos de Anansi - Neil Gaiman</p>
@@ -144,10 +142,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/livros/dd.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/dd.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Donnie Darko</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Donnie Darko - Richard Kelly</p>
@@ -161,10 +159,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/livros/hero.jpg" alt="""></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/hero.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">A Entidade Secreta dos Super-Heróis</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">A Entidade Secreta dos Super-Heróis - Brian J. Robb</p>
@@ -178,10 +176,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/livros/j1.jpg" alt="" height="350px"></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/j1.jpg" alt="" height="350px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Jogador N°1</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Jogador N°1</p>
@@ -195,10 +193,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="img/livros/sith.jpg" alt="" height="350px"></a>
+              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/sith.jpg" alt="" height="350px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Livro dos Sith</a>
+                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Star Wars - Livro dos Sith</p>
@@ -222,6 +220,27 @@
       localStorage.setItem("valor" + posicao, valor);
       alert("Produto adicionado ao carrinho!");
     }
+  </script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        url: "http://localhost:8080/rest_persistence/api/produtos",
+        produtos: []
+      },
+      created() {
+        vm = this;
+        axios.get(this.url).then(function (r) {
+          if (r.data.produto.length > 1) {
+            vm.produtos = r.data.produto;
+          } else {
+            vm.produtos = r.data;
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    });
   </script>
 
   <footer class="page-footer font-small cyan darken-3">
