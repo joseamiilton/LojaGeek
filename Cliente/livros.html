@@ -11,6 +11,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/icon.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/vue-router.js"></script>
+  <script src="js/axios.min.js"></script>
+  <script src="js/vue-session.js"></script>
 </head>
 
 <body>
@@ -41,7 +48,7 @@
 
   <div id="id01" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php">
+    <form class="modal-content animate" action="/action_page.php" id="conta">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close"
           title="Close Modal">&times;</span>
@@ -49,13 +56,14 @@
       </div>
 
       <div class="container">
-        <label for="uname"><b>Email:</b></label>
-        <input type="text" placeholder="Escreva seu email" name="uname" required>
+        <p style="color: red">{{error}}</p>
+        <label for="uname"><b>Nome de usuário:</b></label>
+        <input type="text" placeholder="Escreva seu nome de usuário" name="uname" v-model="username" required>
 
-        <label for="psw"><b>Senha</b></label>
-        <input type="password" placeholder="Escreva sua senha" name="psw" required>
+        <label for="psw"><b>Senha:</b></label>
+        <input type="password" placeholder="Escreva sua senha" name="psw" v-model="password" required>
 
-        <button type="submit">Entrar</button>
+        <button type="button" @click="submit">Entrar</button>
         <label>
           <input type="checkbox" checked="checked" name="remember"> Lembre-se de mim
         </label>
@@ -67,6 +75,38 @@
         <span class="psw">Ainda não possui conta? <a href="cadastro.html"> Registre-se</a></span>
       </div>
     </form>
+    <script>
+      var app = new Vue({
+        el: "#conta",
+        data: {
+          url: "http://localhost:8080/rest_persistence/login",
+          username: null,
+          password: null,
+          error: null
+        },
+        created() {
+        },
+        methods: {
+          submit() {
+            vm = this;
+            axios.defaults.withCredentials = true;
+            axios.post(this.url, {
+              username: vm.username,
+              password: vm.password
+            }).then(function (r) {
+              if (r.status == 200) {
+                vm.$session.start();
+                vm.$session.set("id", r.data);
+                window.location.replace("User-Conta.html");
+              }
+            }).catch(function (error) {
+              console.log(error);
+              vm.error = "Não foi possível logar. Favor verificar se login e senha estão corretos!";
+            });
+          }
+        }
+      });
+    </script>
   </div>
 
 
@@ -104,14 +144,14 @@
           </a>
         </div>
 
-        <div class="row">
+        <div class="row" id="app">
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/amgods.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+28"><img class="card-img-top" src="img/amgods.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+28">{{produtos[27].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Deuses Americanos - Neil Gaiman</p>
@@ -125,10 +165,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/anansi.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+29"><img class="card-img-top" src="img/anansi.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+29">{{produtos[28].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Os Filhos de Anansi - Neil Gaiman</p>
@@ -142,10 +182,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/dd.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+30"><img class="card-img-top" src="img/dd.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+30">{{produtos[29].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Donnie Darko - Richard Kelly</p>
@@ -159,10 +199,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/hero.jpg" alt=""></a>
+              <a :href="'produtos.html?id='+31"><img class="card-img-top" src="img/hero.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+31">{{produtos[30].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">A Entidade Secreta dos Super-Heróis - Brian J. Robb</p>
@@ -176,10 +216,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/j1.jpg" alt="" height="350px"></a>
+              <a :href="'produtos.html?id='+32"><img class="card-img-top" src="img/j1.jpg" alt="" height="350px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+32">{{produtos[31].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Jogador N°1</p>
@@ -193,10 +233,10 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a :href="'produtos.html?id='+7"><img class="card-img-top" src="img/sith.jpg" alt="" height="350px"></a>
+              <a :href="'produtos.html?id='+33"><img class="card-img-top" src="img/sith.jpg" alt="" height="350px"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a :href="'produtos.html?id='+7">{{produtos[6].nome}}</a>
+                  <a :href="'produtos.html?id='+33">{{produtos[32].nome}}</a>
                 </h4>
                 <h5>R$40,00</h5>
                 <p class="card-text">Star Wars - Livro dos Sith</p>
